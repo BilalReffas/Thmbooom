@@ -1,5 +1,5 @@
 ![](https://imgur.com/DhH1S3P.png)
-# thmbooom
+# Thmbooom
 thmbooom is a simple script to download lecture slide from Technical University of Applied Science Gießen [THM Moodle](https://moodle.thm.de/login/index.php)
 
 # Dependencies 
