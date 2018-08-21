@@ -1,0 +1,115 @@
+#!/usr/bin/env python
+
+import re
+import sys
+import os
+import requests
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from bs4 import BeautifulSoup
+
+
+def get_request_session(driver):
+    session = requests.Session()
+    for cookie in driver.get_cookies():
+        session.cookies.set(cookie['name'], cookie['value'])
+
+    return session
+
+print("""
+$$$$$$$$\ $$\   $$\ $$\      $$\       $$\      $$\                           $$\ $$\           
+\__$$  __|$$ |  $$ |$$$\    $$$ |      $$$\    $$$ |                          $$ |$$ |          
+   $$ |   $$ |  $$ |$$$$\  $$$$ |      $$$$\  $$$$ | $$$$$$\   $$$$$$\   $$$$$$$ |$$ | $$$$$$\  
+   $$ |   $$$$$$$$ |$$\$$\$$ $$ |      $$\$$\$$ $$ |$$  __$$\ $$  __$$\ $$  __$$ |$$ |$$  __$$\ 
+   $$ |   $$  __$$ |$$ \$$$  $$ |      $$ \$$$  $$ |$$ /  $$ |$$ /  $$ |$$ /  $$ |$$ |$$$$$$$$ |
+   $$ |   $$ |  $$ |$$ |\$  /$$ |      $$ |\$  /$$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |$$   ____|
+   $$ |   $$ |  $$ |$$ | \_/ $$ |      $$ | \_/ $$ |\$$$$$$  |\$$$$$$  |\$$$$$$$ |$$ |\$$$$$$$\ 
+   \__|   \__|  \__|\__|     \__|      \__|     \__| \______/  \______/  \_______|\__| \_______|
+   
+   CREATED BY
+   
+   |__] | |    |__| |       |__/ |___ |___ |___ |__| [__ 
+   |__] | |___ |  | |___    |  \ |___ |    |    |  | ___]\n
+""")
+
+print("Please enter your credentials to download files from THM Moodle...\n")
+username_input = input('THM Moodle Username: ')
+password_input = input('THM Moodle Password: ')
+
+if not username_input or not password_input:
+    sys.exit('\nError => Exit programm missing credentials...')
+
+driver = webdriver.Firefox()
+driver.get("https://cas.thm.de/cas/login")
+username = driver.find_element_by_id("username")
+password = driver.find_element_by_id("password")
+
+username.send_keys(username_input)
+password.send_keys(password_input)
+
+driver.find_element_by_name("submit").click()
+
+soup = BeautifulSoup(driver.page_source, 'lxml')
+
+if soup.find("div", {"id":"status"}).text == "Die von Ihnen angegebenen Anmeldedaten wurden nicht akzeptiert.":
+    sys.exit('\nError => Account not found, please check your credentials...')
+else:
+    driver.get("https://moodle.thm.de/login/index.php")
+    driver.find_element_by_xpath("/html/body/div[1]/div[2]/div/div/section/div/div/div/div/div/div[1]/form/input[2]").click()
+    
+    soup = BeautifulSoup(driver.page_source, 'lxml')
+
+    uls = soup.find("ul", {"class": "unlist"})
+
+    lists = uls.findAll("li")
+    print("\033c")
+    print("Courses you are enrolling, please select the number of the course to download the lecture slides\n\n")
+    found_courses = []
+    #j.text, j['href']
+    for i in lists:
+        for j in i.findAll("a", href=True):
+            found_courses.append(j)
+
+    for index, value in enumerate(found_courses):
+        print("\nNr: "+str(index)+" "+ value.text)
+    
+    selection = input('\nCourse number to download lecture slides: ')
+
+    if not selection:
+        sys.exit('\nError => Missing course number...')
+
+    
+    driver.get(found_courses[int(selection)]['href'])
+
+    soup = BeautifulSoup(driver.page_source, 'lxml')
+
+    links = []
+
+    for link in soup.find_all('a'):
+        links.append(link)
+
+    new_links = [s for s in links if "resource" in str(s)]
+
+    os.mkdir(found_courses[int(selection)].text)
+
+    os.chdir(found_courses[int(selection)].text)
+
+    session = get_request_session(driver)
+
+    for i in new_links:
+        r = session.get(str(i.get('href')), stream=True)
+        chunk_size = 2000
+        with open(os.getcwd()+'/'+i.text+'.pdf', 'wb') as file:
+            for chunk in r.iter_content(chunk_size):
+                file.write(chunk)
+
+    print("""
+
+    
+             ╔═╗┬ ┬┌─┐┌─┐┌─┐┌─┐┌─┐  
+             ╚═╗│ ││  │  ├┤ └─┐└─┐  
+             ╚═╝└─┘└─┘└─┘└─┘└─┘└─┘
+             
+             
+         """)
+
