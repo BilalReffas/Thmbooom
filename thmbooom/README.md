@@ -1,9 +1,9 @@
 ![](https://imgur.com/DhH1S3P.png)
-# Thmboom
-Thmboom is a simple script to download lecture slide from Technical University of Applied Science Gießen [THM Moodle](https://moodle.thm.de/login/index.php)
+# thmbooom
+thmbooom is a simple script to download lecture slide from Technical University of Applied Science Gießen [THM Moodle](https://moodle.thm.de/login/index.php)
 # Installation
 You can use pip to install the module
-```pip install thmboom```
+```pip install thmbooom```
 ### Author
 
   [@reffas_bilal](https://twitter.com/Reffas_Bilal)
