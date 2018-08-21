@@ -1,6 +1,15 @@
 ![](https://imgur.com/DhH1S3P.png)
 # thmbooom
 thmbooom is a simple script to download lecture slide from Technical University of Applied Science Gießen [THM Moodle](https://moodle.thm.de/login/index.php)
+
+# Dependencies 
+It's important you have Firefox installed on you're local machine to make thmbooom happy, because thmboom is using the Firefox driver.
+As well thmbooom is usign some awesome dependecies like selenium to access all functionalities of Selenium WebDriver in an intuitive way and beautifulsoup for easy parsing. 
+
+Make sure to install those dependecies 
+* `pip install selenium`
+* `pip install beautifulsoup4`
+
 # Installation
 You can use pip to install the module
 ```pip install thmbooom```
