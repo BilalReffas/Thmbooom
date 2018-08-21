@@ -6,16 +6,16 @@ with open("README.md", "r") as fh:
 
 setup(
   name = 'thmbooom',
-  packages = ['thmbooom'], 
-  version = '0.1',
+  scripts=['thmbooom'],   
+  version = '0.111',
   description = 'Module to auto download lecture slides https://moodle.thm.de',
   long_description=long_description,
   long_description_content_type="text/markdown",
   author = 'Bilal Reffas',
   author_email = 'bilalreffas@googlemail.com',
-  url = 'https://github.com/BilalReffas/Thmboom',
-  download_url = 'https://github.com/BilalReffas/Thmboom',
-  keywords = ['python','webscraping','downloader','automation','utomation-selenium'],
+  url = 'https://github.com/BilalReffas/Thmbooom',
+  download_url = 'https://github.com/BilalReffas/Thmbooom',
+  keywords = ['python','webscraping','downloader','automation','uiatomation-selenium'],
      classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
