@@ -10,6 +10,7 @@ Make sure to install those dependecies
 * `pip install selenium`
 * `pip install beautifulsoup4`
 * `pip install lxml`
+* `pip install requests`
 
 # Geckodriver
 Install geckodriver on your local machine to interact with Gecko-based browsers.
