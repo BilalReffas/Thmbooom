@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 setup(
   name = 'thmbooom',
   scripts=['thmbooom'],   
-  version = '0.111',
+  version = '0.112',
   description = 'Module to auto download lecture slides https://moodle.thm.de',
   long_description=long_description,
   long_description_content_type="text/markdown",
