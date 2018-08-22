@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-
+import getpass
 import re
 import sys
 import os
@@ -35,7 +35,7 @@ $$$$$$$$\ $$\   $$\ $$\      $$\       $$\      $$\                           $$
 
 print("Please enter your credentials to download files from THM Moodle...\n")
 username_input = input('THM Moodle Username: ')
-password_input = input('THM Moodle Password: ')
+password_input = getpass.getpass('THM Moodle Password: ')
 
 if not username_input or not password_input:
     sys.exit('\nError => Exit programm missing credentials...')
