@@ -9,6 +9,7 @@ As well thmbooom is usign some awesome dependecies like selenium to access all f
 Make sure to install those dependecies 
 * `pip install selenium`
 * `pip install beautifulsoup4`
+* `pip install lxml`
 
 # Geckodriver
 Install geckodriver on your local machine to interact with Gecko-based browsers.
@@ -26,6 +27,10 @@ Install geckodriver on your local machine to interact with Gecko-based browsers.
 # Installation
 You can use pip to install the module
 ```pip install thmbooom```
+
+# Requirement's 
+Python 3 +
+
 ### Author
 
   [@reffas_bilal](https://twitter.com/Reffas_Bilal)
